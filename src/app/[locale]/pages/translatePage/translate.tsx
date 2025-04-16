@@ -1,0 +1,53 @@
+'use client';
+
+import { usePathname, useRouter } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
+import Image from 'next/image';
+import { useState } from 'react'
+
+export default function Translates() {
+  const t = useTranslations()
+  const locales = [
+	 { code: 'en', label: "English", flag: 'data:image/png;base64,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' },
+	 { code: 'ru', label: "Расия", flag: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARMAAAC3CAMAAAAGjUrGAAAAG1BMVEX///8AOabVKx72+f0AHJ/eKgjUJBXgbWYZOJiJ1uqSAAAA+klEQVR4nO3QsQGCABAAsRcE3X9i+r+KPhkhMwAAAAAAAAAAAAAAAAAAAAAvnWzzZZsPm5NyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclLzZ5uLbQ42J+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJ+WknJSTclJOykk5KSc1N9v82B6Zid9xk3nxWAAAAABJRU5ErkJggg==' }
+  ];
+  const [open, setOpen] = useState(false);
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleLocaleChange = (code: string) => {
+	 const newPath = `/${code}${pathname.replace(/^\/[a-z]{2}/, '')}`;
+	 router.push(newPath);
+	 setOpen(false);
+  };
+
+  const current = locales.find(l => l.code === locale) || locales[0];
+
+
+  return (
+	 <div className="relative inline-block text-left">
+	 <button
+		onClick={() => setOpen(!open)}
+		className="flex items-center space-x-2 border px-3 py-2 rounded hover:bg-gray-100"
+	 >
+		<Image src={current.flag} alt={current.code} width={20} height={15} />
+		<span>{current.label}</span>
+	 </button>
+
+	 {open && (
+		<div className="absolute mt-2 w-40 bg-white border rounded shadow-md z-10">
+		  {locales.map((loc) => (
+			 <button
+				key={loc.code}
+				onClick={() => handleLocaleChange(loc.code)}
+				className="flex w-full items-center px-3 py-2 hover:bg-gray-100 border-b-[1px]">
+				<Image src={loc.flag} alt={loc.code} width={20} height={15} className="mr-2" />
+				{loc.label}
+			 </button>
+		  ))}
+		</div>
+	 )}
+  </div>
+  );
+}
