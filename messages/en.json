@@ -1,6 +1,15 @@
 {
 	"HomePage": {
-	  "title": "Hello world!",
-	  "about": "Go to the about page"
+		"logintitle": "Sign In",
+		"logindescription": "Enter your credentials to access your account",
+		"username": "Username",
+		"password": "Password",
+		"login": "Login",
+		"notaccount": "Don’t have an account?",
+		"registrationname": "Sign up",
+		"registertitle": "Create an account",
+		"registerdescription": "Please fill out the form to create your account",
+		"email": "Email",
+		"Phone": "Телефон"
 	}
- }
+}

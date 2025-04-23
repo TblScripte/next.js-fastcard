@@ -10,11 +10,11 @@ import img1 from '@/shared/img/icon-copyright.png'
 const Footer = () => {
 	return (
 		<div className='bg-black  h-[340px] p-[35px_0px] mt-[300px] w-full text-white '>
-			<div className='w-[80%] m-auto flex  h-fit justify-between items-center'>
-				<div className=' text-[1.4rem]'>
-					<h1 className='font-bold text-[2rem] '>Exclusive</h1>
+			<div className='w-[80%] m-auto flex flex-wrap h-fit justify-between items-center'>
+				<div className=' text-[1rem]'>
+					<h1 className='font-bold text-[1.7rem] '>Exclusive</h1>
 					<h1 className='mb-[10px] mt-[10px]'>Subscribe</h1>
-					<h1 className='mb-[20px]'>Get 10% off your first order</h1>
+					<h1 className='mb-[20px]'>Get 10ff your first order</h1>
 					<Paper
 						component='form'
 						sx={{
@@ -45,8 +45,8 @@ const Footer = () => {
 						</IconButton>
 					</Paper>
 				</div>
-				<div className='text-[1.4rem]'>
-					<h1 className='text-[2rem] font-bold'>Support</h1>
+				<div className='text-[1rem]'>
+					<h1 className='text-[1.7rem] font-bold'>Support</h1>
 					<h1 className='mb-[10px] mt-[10px]'>
 						111 Bijoy sarani, Dhaka, <br />
 						DH 1515, Bangladesh.
@@ -54,8 +54,8 @@ const Footer = () => {
 					<h1 className='mb-[10px]'>exclusive@gmail.com</h1>
 					<h1>+88015-88888-9999</h1>
 				</div>
-				<div className='text-[1.4rem]'>
-					<h1 className='text-[2rem] font-bold mt-[-10px] mb-[10px]'>
+				<div className='text-[1rem]'>
+					<h1 className='text-[1.7rem] font-bold mt-[-10px] mb-[10px]'>
 						Account
 					</h1>
 					<h1 className=''>My Account</h1>
@@ -63,8 +63,8 @@ const Footer = () => {
 					<h1>Wishlist</h1>
 					<h1>Shop</h1>
 				</div>
-				<div className='text-[1.4rem]'>
-					<h1 className='text-[2rem] font-bold mt-[-10px] mb-[10px]'>
+				<div className='text-[1rem]'>
+					<h1 className='text-[1.7rem] font-bold mt-[-10px] mb-[10px]'>
 						Quick Link
 					</h1>
 					<h1>Privacy Policy</h1>
@@ -73,7 +73,7 @@ const Footer = () => {
 					<h1>Contact</h1>
 				</div>
 			</div>
-			<h1 className='text-gray-500 text-center text-[1.5rem] mt-[30px] flex items-center justify-center'>
+			<h1 className='text-gray-500 text-center text-[1.2rem] mt-[60px] flex items-center justify-center'>
 				<Image
 					width={30}
 					src={img1 || '/placeholder.svg'}

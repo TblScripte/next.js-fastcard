@@ -8,52 +8,100 @@ import InputBase from '@mui/material/InputBase'
 import SearchIcon from '@mui/icons-material/Search'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import img2 from '@/shared/img/Cart1.png'
-import Translates from '../translatePage/translate'
+import { usePathname } from 'next/navigation'
+import MenuIcon from '@mui/icons-material/Menu'
+import { useState } from 'react'
 
-const  Header = () => {
+const Header = () => {
+	const pathname = usePathname()
+	const [isOpen, setIsOpen] = useState(false)
+
 	return (
-		<div className='shadow-b shadow p-[17px_0px] '>
-			<div className='w-[80%] m-auto flex items-center justify-between'>
-				<div className='flex w-[50%] justify-between items-center'>
-					<Image src={img1 || '/placeholder.svg'} alt='123' />
-					<div className='w-[55%] flex justify-between'>
-						<Link href='/'>Home</Link>
-						<Link href='/'>Contact</Link>
-						<Link href='/'>About</Link>
-						<Link href='/'>Sign up</Link>
-					</div>
-				</div>
-				<div>
-				</div>
-				<div className='flex items-center w-[30%] justify-between'>
-					<Paper
-						component='form'
-						sx={{
-							p: '2px 4px',
-							width: '270px',
-							backgroundColor: '#edede9',
-							display: 'flex',
-							alignItems: 'center',
-						}}
+		<div className='shadow p-4'>
+			<div className='max-w-[1300px] w-[90%] mx-auto flex items-center justify-between flex-wrap'>
+				<div className='flex items-center justify-between w-full md:w-auto'>
+					<Image src={img1} alt='logo' width={120} height={40}/>
+					<nav
+					className={`w-full md:w-auto md:flex md:items-center ml-[100px] mt-4 md:mt-0 space-y-2 md:space-y-0 ${
+						isOpen ? 'block' : 'hidden md:block'
+					}`}
+				>
+					<ul className='flex flex-col md:flex-row gap-4 md:gap-8 text-sm md:text-base'>
+						<li>
+							<Link
+								href='/pages/dashboard'
+								className={`hover:text-orange-600 ${
+									pathname === '/en/pages/dashboard' && 'text-orange-500'
+								}`}
+							>
+								Home
+							</Link>
+						</li>
+						<li>
+							<Link
+								href='/pages/contact'
+								className={`hover:text-orange-600 ${
+									pathname === '/en/pages/contact' && 'text-orange-500'
+								}`}
+							>
+								Contact
+							</Link>
+						</li>
+						<li>
+							<Link
+								href='/pages/about'
+								className={`hover:text-orange-600 ${
+									pathname === '/en/pages/about' && 'text-orange-500'
+								}`}
+							>	
+								About
+							</Link>
+						</li>
+						<li>
+							<Link href='/' className='hover:text-orange-600'>
+								Sign up
+							</Link>
+						</li>
+					</ul>
+				</nav>
+					<button
+						onClick={() => setIsOpen(!isOpen)}
+						className='md:hidden text-gray-800 text-2xl'
 					>
-						<InputBase
-							sx={{ ml: 1, flex: 1 }}
-							placeholder='What are you looking for?'
-							inputProps={{ 'aria-label': 'search google maps' }}
-						/>
-						<SearchIcon />
-					</Paper>
-					<FavoriteBorderIcon />
-					<div>
-						<p className='w-[20px] text-center relative top-[10px] left-[13px] text-white items-center flex flex-col justify-center font-[0.5rem] h-[20px] bg-red-500 rounded-full'>
-							2
-						</p>
-						<Image
-							src={img2 || '/placeholder.svg'}
-							className='mb-[20px]'
-							alt='123'
-							width={25}
-						/>
+						<MenuIcon />
+					</button>
+				</div>
+
+				<div className='mt-4 md:mt-0 items-center w-full hidden sm:block  md:w-auto justify-between gap-4'>
+					<div className='flex items-center justify-between'>
+						<Paper
+							component='form'
+							sx={{
+								p: '2px 4px',
+								width: { xs: 200, sm: 250, md: 270 },
+								backgroundColor: '#edede9',
+								display: 'flex',
+								alignItems: 'center',
+							}}
+						>
+							<InputBase
+								sx={{ ml: 1, flex: 1 }}
+								placeholder='What are you looking for?'
+								inputProps={{ 'aria-label': 'search google maps' }}
+							/>
+							<SearchIcon />
+						</Paper>
+
+						<FavoriteBorderIcon className='text-gray-700 mr-[20px] ml-[10px]' />
+
+						<div className='relative'>
+							<p className='absolute -top-2 -right-2 w-5 h-5 text-xs flex items-center justify-center text-white bg-red-500 rounded-full'>
+								2
+							</p>
+							<Link href={"/pages/cart"}>
+							<Image src={img2} alt='cart' width={25} />
+							</Link>
+						</div>
 					</div>
 				</div>
 			</div>

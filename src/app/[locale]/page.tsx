@@ -1,120 +1,164 @@
-"use client"
-import React, { useState } from 'react'
-import Box from '@mui/material/Box'
-import IconButton from '@mui/material/IconButton'
-import OutlinedInput from '@mui/material/OutlinedInput'
-import InputLabel from '@mui/material/InputLabel'
-import InputAdornment from '@mui/material/InputAdornment'
-import FormControl from '@mui/material/FormControl'
-import TextField from '@mui/material/TextField'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import { Button } from '@mui/material'
-import Link from 'next/link'
-import img1 from "@/shared/img/Icon-Google.png"
+'use client'
+
+import React, { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
+import 'swiper/css/pagination'
+import 'swiper/css/navigation'
+
+import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+
 import Image from 'next/image'
-const HomePage = () => {
-	const [showPassword, setShowPassword] = useState(false)
-	  const [name,setName] = useState("")
-		const handleClickShowPassword = () => setShowPassword(show => !show)
+import img1 from '@/shared/img/Frame 560 (1).png'
+import img2 from '@/shared/img/Screenshot 2025-04-21 145353.png'
+import img3 from '@/shared/img/Frame 694.png'
+import ProductList from './components/producList/page'
+import Catigories from './pages/catigories/catigories'
+import Arival from './components/arrival/arival'
+import { useGetCategoryQuery } from '@/store/api'
+
+const Dashboard = () => {
+	const [timeLeft, setTimeLeft] = useState(2 * 60 * 60 + 15 * 60)
+	const { data: category } = useGetCategoryQuery()
+
+	console.log(category);
 	
-		const handleMouseDownPassword = (
-			event: React.MouseEvent<HTMLButtonElement>
-		) => {
-			event.preventDefault()
-		}
-	
-		const handleMouseUpPassword = (
-			event: React.MouseEvent<HTMLButtonElement>
-		) => {
-			event.preventDefault()
-		}
-	  
-	
-	return <div>
-		<div className='flex flex-col items-center justify-center mt-[100px] mb-[100px]'>
-			<div className='w-[360px] h-[400px]'>
-				<h1 className='text-[2rem] font-bold  mt-[10px]'>
-				Log in to Exclusive
-				</h1>
-				<h2 className='font-normal  mt-[10px]'>
-				Enter your details below
-				</h2>
-				<Box>
-				
-					<TextField
-						variant='outlined'
-						label='Email or phone number'
-						sx={{
-							marginTop: '2rem',
-							display: 'flex',
-							justifyContent: 'center',
-							'& .MuiOutlinedInput-root': {
-								'& fieldset': { borderColor: '#ccc' },
-								'&:hover fieldset': { borderColor: '#aaa' },
-								'&.Mui-focused fieldset': { borderColor: 'gray' },
-							},
-							'& label.Mui-focused': { color: 'gray' },
-						}}
-					/>
-					<FormControl
-          
-						sx={{
-							mt: '20px',
-							width: '100%',
-							'& .MuiOutlinedInput-root': {
-								'& fieldset': {
-									borderColor: '#ccc',
-								},
-								'&:hover fieldset': {
-									borderColor: '#aaa',
-								},
-								'&.Mui-focused fieldset': {
-									borderColor: 'gray',
-								},
-							},
-							'& label.Mui-focused': {
-								color: 'gray',
-							},
-						}}
-						variant='outlined'
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setTimeLeft(prev => (prev > 0 ? prev - 1 : 0))
+		}, 1000)
+		return () => clearInterval(timer)
+	}, [])
+
+
+	const formatTime = (seconds: number) => {
+		const hours = Math.floor(seconds / 3600)
+		const minutes = Math.floor((seconds % 3600) / 60)
+		const secs = seconds % 60
+		return `${hours.toString().padStart(2, '0')} : ${minutes
+			.toString()
+			.padStart(2, '0')} : ${secs.toString().padStart(2, '0')}`
+	}
+
+	return (
+		<div className='w-[80%] mx-auto max-w-7xl'>
+			<section className='mt-8 flex flex-col lg:flex-row gap-8'>
+				<div className='hidden lg:block w-full lg:w-1/4 h-[500px] overflow-y-auto'>
+					{category?.map(el => (
+						<div key={el.id} className='mb-4 border-b pb-2'>
+							<h1 className='text-lg font-medium'>{el.categoryName}</h1>
+						</div>
+					))}
+				</div>
+
+				<div className='w-full lg:w-3/4'>
+					<Swiper
+					
+					modules={[Autoplay, Pagination, Navigation]}
+						className='h-[300px] md:h-[400px]'
+						
+						autoplay={{ delay: 3000 }}
 					>
-						<InputLabel htmlFor='outlined-adornment-password'>
-							Password
-						</InputLabel>
-						<OutlinedInput
-            onChange={(el)=>setName(el.target.value)}
-							id='outlined-adornment-password'
-							sx={{ display: 'flex', justifyContent: 'center' }}
-							type={showPassword ? 'text' : 'password'}
-							endAdornment={
-								<InputAdornment position='end'>
-									<IconButton
-										aria-label={
-											showPassword
-												? 'hide the password'
-												: 'display the password'
-										}
-										onClick={handleClickShowPassword}
-										onMouseDown={handleMouseDownPassword}
-										onMouseUp={handleMouseUpPassword}
-										edge='end'
-									>
-										{showPassword ? <VisibilityOff /> : <Visibility />}
-									</IconButton>
-								</InputAdornment>
-							}
-							label='Password'
+						{[{img:img1}, {img:img2}, {img:img3}].map((el, i) => (
+							<SwiperSlide key={i}>
+								<div className='relative w-full h-full'>
+									<Image
+										src={el.img}
+										alt={`Banner ${i + 1}`}
+										fill
+										className='object-cover rounded-xl'
+									/>
+								</div>
+							</SwiperSlide>
+						))}
+					</Swiper>
+				</div>
+			</section>
+
+			<section className='mt-16'>
+				<div className='flex items-center gap-4'>
+					<div className='w-3 h-10 bg-red-500 rounded' />
+					<h1 className='text-2xl font-bold text-red-500'>
+						Today’s Flash Sales
+					</h1>
+				</div>
+
+				<div className='mt-8'>
+					<ProductList />
+				</div>
+
+				<div className='flex justify-center mt-12'>
+					<button className='px-8 py-3 bg-red-500 text-white rounded-lg hover:bg-red-600 transition'>
+						View All Products
+					</button>
+				</div>
+			</section>
+
+			<section className='mt-24'>
+				<div className='flex items-center gap-4 mb-8'>
+					<div className='w-3 h-10 bg-red-500 rounded' />
+					<h1 className='text-2xl font-bold text-red-500'>Categories</h1>
+				</div>
+				<Catigories />
+			</section>
+
+			<section className='mt-24'>
+				<div className='flex justify-between items-center mb-8'>
+					<div className='flex items-center gap-4'>
+						<div className='w-3 h-10 bg-red-500 rounded' />
+						<h1 className='text-2xl font-bold text-red-500'>Best Selling</h1>
+					</div>
+					<button  className='px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600'>
+						View All
+					</button>
+				</div>
+				<ProductList />
+			</section>
+
+			<section className='mt-24 bg-black rounded-2xl p-8 md:p-16 text-white'>
+				<div className='flex flex-col md:flex-row items-center justify-between gap-8'>
+					<div className='space-y-6'>
+						<span className='text-green-400 font-bold'>Categories</span>
+						<h1 className='text-4xl md:text-5xl font-bold'>
+							Enhance Your Music
+							<br />
+							Experience
+						</h1>
+						
+						<button className='px-8 py-3 bg-green-400 rounded-lg hover:bg-green-500'>
+							Buy Now
+						</button>
+						<Image src={img2} alt='dsadas'/>
+					</div>
+					<div className='relative w-full md:w-1/2 h-64'>
+						<Image
+							src={img3}
+							alt='Music Equipment'
+							fill
+							className='object-contain'
 						/>
-					</FormControl>
-				</Box>
-        <h1 className='text-[#DB4444] text-center mt-[10px]'>
-          <Link href={"pages/newAcount"}>Forget Password?</Link>
-        </h1>
-        <Link href={"/pages/dashboard"}><Button variant='outlined' sx={{backgroundColor:"#DB4444",border:"none",width:"100%",height:"50px",color:"white",mt:"30px"}}>Log In</Button></Link>
-			</div>
+					</div>
+				</div>
+			</section>
+
+			<section className='mt-24'>
+				<div className='flex items-center gap-4 mb-8'>
+					<div className='w-3 h-10 bg-red-500 rounded' />
+					<h1 className='text-2xl font-bold text-red-500'>Our Products</h1>
+				</div>
+				<ProductList />
+			</section>
+
+			<section className='mt-24 pb-16'>
+				<div className='flex items-center gap-4 mb-8'>
+					<div className='w-3 h-10 bg-red-500 rounded' />
+					<h1 className='text-2xl font-bold text-red-500'>New Arrivals</h1>
+				</div>
+				<Arival />
+			</section>
 		</div>
-	</div>
+	)
 }
 
-export default HomePage
+export default Dashboard

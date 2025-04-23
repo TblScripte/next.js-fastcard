@@ -1,6 +1,15 @@
 {
 	"HomePage": {
-	  "title": "Hello world! ruski",
-	  "about": "Go to the about page"
+	  "registertitle": "Создать аккаунт",
+	  "registerdescription": "Пожалуйста, заполните поля ниже для регистрации",
+	  "username": "Имя пользователя",
+	  "email": "Электронная почта",
+	  "Phone": "Телефон",
+	  "password": "Пароль",
+	  "confirmpassword": "Подтвердите пароль",
+	  "register": "Зарегистрироваться",
+	  "Already": "Уже есть аккаунт?",
+	  "Login": "Войти"
 	}
-}
+ }
+ 
